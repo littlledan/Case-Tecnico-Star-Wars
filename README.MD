@@ -2,9 +2,9 @@
 
 Este projeto implementa uma arquitetura Serverless utilizando **Python**, projetada para rodar sobre **Google Cloud Functions** e gerenciada via **API Gateway**.
 
-## 🚀 Visão Geral da Arquitetura Proposta
+## Visão Geral da Arquitetura Proposta
 
-### 📐 Diagrama da Solução
+### Diagrama da Solução
 
 O diagrama abaixo ilustra o fluxo de dados na arquitetura Serverless proposta:
 
@@ -37,16 +37,16 @@ A solução foi desenhada para atender aos requisitos de escalabilidade e desaco
 3.  **Cloud Functions (2nd Gen):** Processa a lógica de negócio e conecta com serviços externos (Código em `main.py`).
 4.  **SWAPI (External):** Fonte de dados da saga Star Wars.
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 * **Linguagem:** Python 3.10+
 * **Framework Local:** Google Functions Framework (para simulação fiel do ambiente serverless)
 * **Nuvem Alvo:** Google Cloud Platform (Cloud Run Functions + API Gateway)
 
-## ⚠️ Nota sobre o Deploy
+## Nota sobre o Deploy
 O código foi desenvolvido e testado localmente utilizando o `functions-framework` do Google, garantindo compatibilidade total com o ambiente de Cloud. 
 Devido a restrições momentâneas de faturamento na conta pessoal do GCP (bloqueio regional de pagamentos), o deploy em produção foi simulado localmente. Os arquivos de configuração (`openapi.yaml`) estão inclusos para demonstrar como a infraestrutura seria provisionada.
 
-## ▶️ Como rodar localmente
+## Como rodar localmente
 
 1. Instale as dependências:
    ```bash
