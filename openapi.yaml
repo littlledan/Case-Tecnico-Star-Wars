@@ -1,0 +1,27 @@
+# Configuração para GCP API Gateway
+swagger: '2.0'
+info:
+  title: Star Wars API Proxy
+  description: Gateway para expor a Cloud Function de forma segura.
+  version: 1.0.0
+schemes:
+  - https
+produces:
+  - application/json
+paths:
+  /starwars:
+    get:
+      summary: Busca informações da saga
+      operationId: starwars-search
+      x-google-backend:
+        address: https://us-central1-SEU-PROJETO.cloudfunctions.net/swapi-function
+      parameters:
+        - in: query
+          name: category
+          type: string
+        - in: query
+          name: search
+          type: string
+      responses:
+        '200':
+          description: Sucesso
