@@ -5,18 +5,16 @@ import flask
 @functions_framework.http
 def starwars_search(request):
     """
-    Cloud Function para buscar dados na SWAPI.
-    Projetada para rodar no GCP Cloud Functions.
+    Cloud Function para buscar dados na SWAPI com suporte a PAGINAÇÃO.
     """
-    # 1. Captura parâmetros (suporta GET via Query String)
     request_args = request.args
     category = request_args.get('category', 'people')
     search_term = request_args.get('search')
     resource_id = request_args.get('id')
+    page = request_args.get('page', '1')
     
     base_url = "https://swapi.dev/api"
     
-    # Validação de segurança básica
     allowed_categories = ['people', 'planets', 'starships', 'films']
     if category not in allowed_categories:
         return flask.jsonify({
@@ -24,31 +22,38 @@ def starwars_search(request):
             "valid_options": allowed_categories
         }), 400
 
-    # 2. Montagem da URL
+    
     if resource_id:
         target_url = f"{base_url}/{category}/{resource_id}/"
     else:
         target_url = f"{base_url}/{category}/"
+        
+        
+        params = []
         if search_term:
-            target_url += f"?search={search_term}"
+            params.append(f"search={search_term}")
+        if page:
+            params.append(f"page={page}")
+        
+        
+        if params:
+            target_url += "?" + "&".join(params)
 
-    # 3. Requisição à SWAPI
     try:
         response = requests.get(target_url)
         
-        # Tratamento para 404 da SWAPI
         if response.status_code == 404:
-            return flask.jsonify({"message": "Recurso não encontrado na SWAPI"}), 404
+            return flask.jsonify({"message": "Recurso não encontrado"}), 404
             
         response.raise_for_status()
         data = response.json()
         
-        # 4. Resposta formatada
         return flask.jsonify({
             "source": "GCP Cloud Function (Simulated)",
             "query_params": {
                 "category": category,
-                "search": search_term
+                "search": search_term,
+                "page": page
             },
             "data": data
         }), 200

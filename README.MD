@@ -51,3 +51,13 @@ Devido a restrições momentâneas de faturamento na conta pessoal do GCP (bloqu
 1. Instale as dependências:
    ```bash
    pip install -r requirements.txt
+
+## ônus: Interface Gráfica
+
+O projeto inclui uma interface simples construída com **Streamlit** para facilitar os testes.
+
+Para rodar a interface:
+1. Mantenha o backend rodando em um terminal.
+2. Em outro terminal, execute:
+   ```bash
+   streamlit run frontend.py
