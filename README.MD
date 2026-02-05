@@ -27,6 +27,8 @@ graph LR
     style SWAPI fill:#bbf,stroke:#333,stroke-width:2px
     style CloudFunc fill:#dfd,stroke:#333,stroke-width:2px
 
+    ```
+
 Tecnologias Utilizadas
 Linguagem: Python 3.10+
 
