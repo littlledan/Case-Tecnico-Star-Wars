@@ -8,8 +8,8 @@ Solução de Back End desenvolvida em Python para o desafio técnico da **PowerO
 
 O diagrama abaixo ilustra o fluxo de dados e os componentes da arquitetura proposta:
 
-```
- mermaid
+
+```mermaid
 graph LR
     User[Usuário / Streamlit] -- "GET /?category=films&expand=characters" --> Gateway[GCP API Gateway]
     Gateway -- "Roteamento" --> CloudFunc[Cloud Run Function]
