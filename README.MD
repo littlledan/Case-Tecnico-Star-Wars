@@ -1,16 +1,16 @@
-# Star Wars API Challenge - GCP Serverless
+# Star Wars Explorer - Serverless API & Frontend
 
-Este projeto implementa uma arquitetura Serverless utilizando **Python**, projetada para rodar sobre **Google Cloud Functions** e gerenciada via **API Gateway**.
+Solução de Back End desenvolvida em Python para o desafio técnico da **PowerOfData**. O projeto implementa uma arquitetura Serverless sobre **Google Cloud Functions**, gerenciada via **API Gateway** e consumindo a SWAPI.
 
-## Visão Geral da Arquitetura Proposta
+---
 
-### Diagrama da Solução
+## 🏗️ Arquitetura da Solução
 
-O diagrama abaixo ilustra o fluxo de dados na arquitetura Serverless proposta:
+O diagrama abaixo ilustra o fluxo de dados e os componentes da arquitetura proposta:
 
 ```mermaid
 graph LR
-    User[Usuário / Cliente] -- "GET /starwars" --> Gateway[GCP API Gateway]
+    User[Usuário / Streamlit] -- "GET /?category=films&expand=characters" --> Gateway[GCP API Gateway]
     Gateway -- "Roteamento" --> CloudFunc[Cloud Run Function]
     
     subgraph Google Cloud Platform
@@ -20,44 +20,41 @@ graph LR
     
     CloudFunc -- "Request (requests lib)" --> SWAPI[Star Wars API Externa]
     SWAPI -- "JSON Data" --> CloudFunc
-    CloudFunc -- "Filtro & Parse" --> Gateway
-    Gateway -- "JSON Response" --> User
+    CloudFunc -- "Processamento Paralelo & Ordenação" --> Gateway
+    Gateway -- "JSON Enriquecido" --> User
     
     style User fill:#f9f,stroke:#333,stroke-width:2px
     style SWAPI fill:#bbf,stroke:#333,stroke-width:2px
     style CloudFunc fill:#dfd,stroke:#333,stroke-width:2px
 
-```
-    
+Tecnologias Utilizadas
+Linguagem: Python 3.10+
 
-A solução foi desenhada para atender aos requisitos de escalabilidade e desacoplamento:
+Framework Serverless: Google Functions Framework
 
-1.  **Cliente:** Realiza a requisição HTTP.
-2.  **GCP API Gateway:** Ponto de entrada único, responsável pelo roteamento e segurança (Configuração em `openapi.yaml`).
-3.  **Cloud Functions (2nd Gen):** Processa a lógica de negócio e conecta com serviços externos (Código em `main.py`).
-4.  **SWAPI (External):** Fonte de dados da saga Star Wars.
+Concorrência: concurrent.futures
 
-## Tecnologias Utilizadas
-* **Linguagem:** Python 3.10+
-* **Framework Local:** Google Functions Framework (para simulação fiel do ambiente serverless)
-* **Nuvem Alvo:** Google Cloud Platform (Cloud Run Functions + API Gateway)
+Testes: Pytest & Mock
 
-## Nota sobre o Deploy
-O código foi desenvolvido e testado localmente utilizando o `functions-framework` do Google, garantindo compatibilidade total com o ambiente de Cloud. 
-Devido a restrições momentâneas de faturamento na conta pessoal do GCP (bloqueio regional de pagamentos), o deploy em produção foi simulado localmente. Os arquivos de configuração (`openapi.yaml`) estão inclusos para demonstrar como a infraestrutura seria provisionada.
+Interface: Streamlit (para validação visual)
 
-## Como rodar localmente
+Nota sobre o Deploy
+O código foi desenvolvido e testado localmente utilizando o emulador oficial do Google (functions-framework), garantindo compatibilidade total com o ambiente de Cloud. Devido a restrições de faturamento na conta pessoal do GCP (bloqueio regional), o deploy em produção foi simulado localmente. Os arquivos de infraestrutura (openapi.yaml) estão inclusos para demonstrar o provisionamento.
 
-1. Instale as dependências:
-   ```bash
-   pip install -r requirements.txt
-
-## Bônus: Interface Gráfica
-
-O projeto inclui uma interface simples construída com **Streamlit** para facilitar os testes.
-
-Para rodar a interface:
-1. Mantenha o backend rodando em um terminal.
-2. Em outro terminal, execute:
-   ```bash
-   streamlit run frontend.py
+Como executar o projeto
+1. Instalação
+Bash
+python -m venv venv
+# Ative a venv
+pip install -r requirements.txt
+2. Executar Back End (Simulação Cloud)
+Bash
+functions-framework --target=starwars_search --debug
+3. Executar Front End (Interface de Teste)
+Em um novo terminal (com a venv ativa):
+Bash
+streamlit run frontend.py
+O navegador abrirá automaticamente em http://localhost:8501.
+4. Executar Testes Unitários
+Bash
+pytest
