@@ -52,7 +52,7 @@ Devido a restrições momentâneas de faturamento na conta pessoal do GCP (bloqu
    ```bash
    pip install -r requirements.txt
 
-## ônus: Interface Gráfica
+## Bônus: Interface Gráfica
 
 O projeto inclui uma interface simples construída com **Streamlit** para facilitar os testes.
 
