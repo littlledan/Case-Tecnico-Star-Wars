@@ -4,7 +4,7 @@ Solução de Back End desenvolvida em Python para o desafio técnico da **PowerO
 
 ---
 
-## 🏗️ Arquitetura da Solução
+## Arquitetura da Solução
 
 O diagrama abaixo ilustra o fluxo de dados e os componentes da arquitetura proposta:
 
