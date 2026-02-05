@@ -28,6 +28,8 @@ graph LR
     style SWAPI fill:#bbf,stroke:#333,stroke-width:2px
     style CloudFunc fill:#dfd,stroke:#333,stroke-width:2px
 
+```
+
 Decisões Técnicas e Implementações
 A solução foi desenhada para atender aos requisitos de escalabilidade e performance, indo além do consumo básico de API:
 
