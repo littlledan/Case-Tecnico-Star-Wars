@@ -27,7 +27,16 @@ graph LR
     style SWAPI fill:#bbf,stroke:#333,stroke-width:2px
     style CloudFunc fill:#dfd,stroke:#333,stroke-width:2px
 
-    ```
+Decisões Técnicas e Implementações
+A solução foi desenhada para atender aos requisitos de escalabilidade e performance, indo além do consumo básico de API:
+
+GCP API Gateway: Ponto único de entrada responsável pelo roteamento e segurança (Configuração em openapi.yaml).
+
+Cloud Functions (2nd Gen): Processamento da regra de negócio utilizando functions-framework.
+
+Algoritmo de Ordenação: Implementação de lógica de sort no backend (via parâmetro sort), funcionalidade nativamente inexistente na fonte de dados.
+
+Processamento Assíncrono (Threads): Para a correlação de dados (ex: listar nomes de personagens em um filme), foi utilizado ThreadPoolExecutor. Isso permitiu paralelizar múltiplas requisições HTTP, reduzindo a latência de resposta de ~10s para ~1.5s.
 
 Tecnologias Utilizadas
 Linguagem: Python 3.10+
@@ -45,18 +54,20 @@ O código foi desenvolvido e testado localmente utilizando o emulador oficial do
 
 Como executar o projeto
 1. Instalação
-Bash
+
 python -m venv venv
 # Ative a venv
 pip install -r requirements.txt
+
 2. Executar Back End (Simulação Cloud)
-Bash
+
 functions-framework --target=starwars_search --debug
+
 3. Executar Front End (Interface de Teste)
 Em um novo terminal (com a venv ativa):
-Bash
+
 streamlit run frontend.py
-O navegador abrirá automaticamente em http://localhost:8501.
+
 4. Executar Testes Unitários
-Bash
+
 pytest
